@@ -30,7 +30,29 @@ docker compose down
 ## Acessos
 
 - **Selenium Grid Console**: http://localhost:4444
-- **VNC Debug Chrome**: http://localhost:7900 (senha: `secret`)
+- **VNC Debug Chrome**: http://localhost:7900
+
+## Senhas
+
+As senhas são configuradas através do arquivo `.env` (veja `.env.example`):
+
+- **SELENIUM_HUB_USER**: Usuário para acessar o Selenium Grid Console
+- **SELENIUM_HUB_PASSWORD**: Senha do Selenium Grid Console
+- **SELENIUM_VNC_PASSWORD**: Senha para acessar o debug visual no NoVNC (porta 7900)
+
+Para configurar, crie um arquivo `.env` na raiz do projeto:
+
+```bash
+cp .env.example .env
+```
+
+E edite com suas credenciais:
+
+```env
+SELENIUM_HUB_USER=admin
+SELENIUM_HUB_PASSWORD=minha_senha_segura
+SELENIUM_VNC_PASSWORD=senha_vnc_123
+```
 
 ## Configurações
 

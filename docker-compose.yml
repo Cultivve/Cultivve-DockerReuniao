@@ -6,12 +6,10 @@ services:
     container_name: selenium-hub
     ports:
       - "4444:4444"
-    volumes:
-      - ./chrome-profile:/home/seluser/chrome-profile 
+    # Removido o volume daqui, pois o Hub não executa navegadores
     environment:
       - GRID_MAX_SESSION=4
       - GRID_TIMEOUT=60
-      # Lê as credenciais do arquivo .env
       - GRID_ADMIN_USER=${SELENIUM_HUB_USER}
       - GRID_ADMIN_PASSWORD=${SELENIUM_HUB_PASSWORD}
     networks:
@@ -25,15 +23,16 @@ services:
       - selenium-hub
     ports:
       - "7900:7900"  
+    # ADICIONADO AQUI: O nó de execução é quem precisa persistir o perfil do Chrome
+    volumes:
+      - ./chrome-profile:/home/seluser/chrome-profile 
     environment:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
       - NODE_MAX_SESSION=2
-      # O nó precisa das mesmas credenciais para se autenticar no Hub
       - GRID_ADMIN_USER=${SELENIUM_HUB_USER}
       - GRID_ADMIN_PASSWORD=${SELENIUM_HUB_PASSWORD}
-      # Define a senha do NoVNC obtida do .env
       - VNC_PASSWORD=${SELENIUM_VNC_PASSWORD}
     networks:
       - selenium-network
@@ -41,3 +40,4 @@ services:
 networks:
   selenium-network:
     driver: bridge
+
