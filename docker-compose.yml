@@ -11,6 +11,9 @@ services:
     environment:
       - GRID_MAX_SESSION=4
       - GRID_TIMEOUT=60
+      # Lê as credenciais do arquivo .env
+      - GRID_ADMIN_USER=${SELENIUM_HUB_USER}
+      - GRID_ADMIN_PASSWORD=${SELENIUM_HUB_PASSWORD}
     networks:
       - selenium-network
 
@@ -27,6 +30,11 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
       - NODE_MAX_SESSION=2
+      # O nó precisa das mesmas credenciais para se autenticar no Hub
+      - GRID_ADMIN_USER=${SELENIUM_HUB_USER}
+      - GRID_ADMIN_PASSWORD=${SELENIUM_HUB_PASSWORD}
+      # Define a senha do NoVNC obtida do .env
+      - VNC_PASSWORD=${SELENIUM_VNC_PASSWORD}
     networks:
       - selenium-network
 
